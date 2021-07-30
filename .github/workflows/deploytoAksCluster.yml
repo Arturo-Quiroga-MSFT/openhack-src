@@ -75,7 +75,7 @@ jobs:
     
     - name: Create namespace
       run: |
-        namespacePresent=`kubectl get namespace | grep hackapi | wc -l`
+        namespacePresent=`kubectl get namespace | grep hackweb | wc -l`
         if [ $namespacePresent -eq 0 ]
         then
             echo `kubectl create namespace hackweb`
@@ -83,7 +83,7 @@ jobs:
 
     - uses: azure/k8s-create-secret@v1
       with:
-        namespace: hackapi
+        namespace: hackweb
         container-registry-url: aqaksacr.azurecr.io
         container-registry-username: ${{ secrets.acr_aqaksacr_username }}
         container-registry-password: ${{ secrets.acr_aqaksacr_password }}
@@ -91,7 +91,7 @@ jobs:
        
     - uses: azure/k8s-deploy@v1.2
       with:
-        namespace: hackapi
+        namespace: hackweb
         manifests: |
           manifests/tripviewer-deployment.yml
           manifests/tripviewer-service.yml

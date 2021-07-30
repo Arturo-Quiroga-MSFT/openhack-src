@@ -78,7 +78,7 @@ jobs:
         namespacePresent=`kubectl get namespace | grep hackapi | wc -l`
         if [ $namespacePresent -eq 0 ]
         then
-            echo `kubectl create namespace hackapi`
+            echo `kubectl create namespace hackweb`
         fi
 
     - uses: azure/k8s-create-secret@v1

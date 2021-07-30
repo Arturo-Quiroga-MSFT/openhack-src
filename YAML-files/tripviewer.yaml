@@ -6,7 +6,7 @@ metadata:
   labels:
     deploy: tripviewer
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tripviewer
@@ -16,7 +16,7 @@ spec:
         app: tripviewer
     spec:
       containers:
-      - image: "aqaksacr.azurecr.io/tripviewer"
+      - image: "registrybkp3109.azurecr.io/tripinsights/tripviewer:1.0"
         imagePullPolicy: Always
         name: tripviewer
         ports:
@@ -25,8 +25,27 @@ spec:
             protocol: TCP
         env:
           - name: USERPROFILE_API_ENDPOINT
-            value: "http://userprofile.hackweb.svc.cluster.local"
+            value: "http://userprofile.api.svc.cluster.local"
           - name: TRIPS_API_ENDPOINT
-            value: "http://trips.hackweb.svc.cluster.local"
+            value: "http://trips.api.svc.cluster.local"
           - name: BING_MAPS_KEY
             value: ""
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tripviewer
+  namespace: web
+spec:
+  type: ClusterIP
+  selector:
+    app: tripviewer
+  ports:
+    - protocol: TCP
+      name: tripviewer-http
+      port: 80
+      targetPort: 80
+    - protocol: TCP
+      name: tripviewer-https
+      port: 443
+      targetPort: 443

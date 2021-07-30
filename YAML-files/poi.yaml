@@ -16,7 +16,7 @@ spec:
         app: poi
     spec:
       containers:
-      - image: "aqaksacr.azurecr.io/poi"
+      - image: "registrybkp3109.azurecr.io/tripinsights/poi:1.0"
         imagePullPolicy: Always
         name: poi
         livenessProbe:
@@ -48,3 +48,23 @@ spec:
         envFrom:
           - secretRef:
               name: sql
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: poi
+  namespace: api
+spec:
+  type: ClusterIP
+  selector:
+    app: poi
+  ports:
+    - protocol: TCP
+      name: poi-http
+      port: 80
+      targetPort: 8080
+    - protocol: TCP
+      name: poi-https
+      port: 443
+      targetPort: 443

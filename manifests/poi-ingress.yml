@@ -1,17 +1,27 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-    name: "poi"
-    labels:
-        app: "poi"
-    annotations:
-        kubernetes.io/ingress.class: addon-http-application-routing
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+  name: poi-ingress
+  namespace: api
 spec:
-    rules:
-        - host: hackapi-aqakscluster-46f2.4a680e702b4f4f89ac6e.canadacentral.aksapp.io
-          http:
-            paths:
-            - path: /
-              backend:
-                serviceName: "poi"
-                servicePort: 81
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: poi
+          servicePort: 80
+        path: /api/docs/poi
+      - backend:
+          serviceName: poi
+          servicePort: 80
+        path: /api/healthcheck/poi
+      - backend:
+          serviceName: poi
+          servicePort: 80
+        path: /api/poi
+      - backend:
+          serviceName: poi
+          servicePort: 80
+        path: /swagger/docs/poi

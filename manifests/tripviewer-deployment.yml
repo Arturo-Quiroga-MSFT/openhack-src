@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: "poi"
+  name: "tripviewer"
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: "poi"
+      app: "tripviewer"
   template:
     metadata:
       labels:
-        app: "poi"
+        app: "tripviewer"
     spec:
       containers:
-        - name: "poi"
-          image: "aqaksacr.azurecr.io/poi"
+        - name: "tripviewer"
+          image: "aqaksacr.azurecr.io/tripviewer"
           ports:
           - containerPort: 80

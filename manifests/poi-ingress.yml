@@ -4,7 +4,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: addon-http-application-routing
   name: poi-ingress
-  namespace: api
+  namespace: hackapi
 spec:
   rules:
   - http:

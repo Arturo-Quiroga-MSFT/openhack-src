@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tripviewer
-  namespace: web
+  namespace: hackweb
 spec:
   type: ClusterIP
   selector:
